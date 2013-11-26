@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
+  <script src="resource/js/parallax.js"></script>
+  <script>              
+    // Display status message
+    function Status(ticks)
+    {
+        var el = document.getElementById('status');
+        el.innerHTML = 'Ticks: ' + ticks;
+    }
+
+    // Main function to call
+    function Run()
+    {
+        ctx.clearRect(0,0, screen.width, screen.height);
+        ticks++;
+        Status(ticks);
+        parallax.Draw();
+    }
+  </script>
+</head>
+<body>
+  <div style="margin: 0 auto; width: 320px;">
+    <canvas id="screen" width="200" height="200"></canvas>
+    <p id="status"></p>
+  </div>
+  <script>    
+        // Fetch the canvas element and context
+    var screen = document.getElementById('screen');
+    var ctx = screen.getContext('2d');  
+
+        // Initialize the layer and parallax scrolling
+        var layer = new Array('resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
+        var parallax = new ParallaxScrolling(ctx, layer);
+
+    // Set ticks to 0 and initialize options array for our sprite
+    var ticks = 0;
+    window.setInterval(Run, 60);
+  </script>
+  <noscript>You need javascript to run the demo!</noscript>
+</body></html>
