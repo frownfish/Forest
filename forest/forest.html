@@ -1,55 +1,53 @@
 <!DOCTYPE html>
-<html><head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
-  <script src="resource/js/parallax.js"></script>
-  <script>              
-    // Display status message
-    function Status(ticks)
-    {
-        var el = document.getElementById('status');
-        el.innerHTML = 'Ticks: ' + ticks;
-    }
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
+        <script src="resource/js/parallax.js"></script>
+        <script src="resource/js/sprite.js"></script>
+    </head>
+    <body>
+        <div style="margin: 0 auto; width: 320px;">
+            <canvas id="screen" width="400" height="200"></canvas>
+        </div>
+        <script>    
+            // Fetch the canvas element and context
+            var can = document.getElementById('screen');
+            can.tabIndex = 1;
+            var ctx = can.getContext('2d');
 
-    // Main function to call
-    function Run()
-    {
-        ticks++;
-        Status(ticks);
-    }
+            // Initialize the layer and parallax scrolling
+            var layer = new Array('resource/img/background-0.png',
+                                  'resource/img/background-0.png',
+                                  'resource/img/background-1.png',
+                                  'resource/img/background-2.png');
+            var parallax = new ParallaxScrolling(ctx, layer);
 
-  </script>
-</head>
-<body>
-  <div style="margin: 0 auto; width: 320px;">
-    <canvas id="screen" width="400" height="200"></canvas>
-    <p id="status"></p>
-  </div>
-  <script>    
-        // Fetch the canvas element and context
-    var can = document.getElementById('screen');
-    can.tabIndex = 1;
-    var ctx = can.getContext('2d');
+            can.addEventListener('keydown', function(e)
+            {
+                if (e.keyCode === 37)  // left
+                {
+                    parallax.Move(-1, 1);
+                }
+                else if (e.keyCode === 39)  // right
+                {
+                    parallax.Move(1, 1);
+                }
+            }, false);
 
-    // Initialize the layer and parallax scrolling
-    var layer = new Array('resource/img/background-0.png', 'resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
-    var parallax = new ParallaxScrolling(ctx, layer);
+            // Set ticks to 0 and initialize options array for our sprite
+            var spriteOptions =
+            {
+                can: can,
+                imgSrc: 'images/run2.png',
+                spw: 48,
+                frames: 10
+            };
 
-
-    can.addEventListener('keydown', function(e)
-    {
-        if (e.keyCode === 37)  // left
-        {
-            parallax.Move(-1,1);
-        }
-        else if (e.keyCode === 39)  // right
-        {
-            parallax.Move(1,1);
-        }
-    }, false);
-
-    // Set ticks to 0 and initialize options array for our sprite
-    var ticks = 0;
-    window.setInterval(parallax.Draw, 20);
-  </script>
-  <noscript>You need javascript to run the demo!</noscript>
-</body></html>
+            // Initialize the sprite and run the demo
+            var sprite = new Sprite(spriteOptions);
+            var ticks = 0;
+            window.setInterval(parallax.Draw, 20);
+        </script>
+        <noscript>You need javascript to run the demo!</noscript>
+    </body>
+</html>
