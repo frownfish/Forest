@@ -22,7 +22,7 @@
 </head>
 <body>
   <div style="margin: 0 auto; width: 320px;">
-    <canvas id="screen" width="200" height="200"></canvas>
+    <canvas id="screen" width="400" height="200"></canvas>
     <p id="status"></p>
   </div>
   <script>    
@@ -31,12 +31,12 @@
     var ctx = screen.getContext('2d');  
 
         // Initialize the layer and parallax scrolling
-        var layer = new Array('resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
+        var layer = new Array('resource/img/background-0.png', 'resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
         var parallax = new ParallaxScrolling(ctx, layer);
 
     // Set ticks to 0 and initialize options array for our sprite
     var ticks = 0;
-    window.setInterval(Run, 60);
+    window.setInterval(Run, 33);
   </script>
   <noscript>You need javascript to run the demo!</noscript>
 </body></html>
