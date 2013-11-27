@@ -37,36 +37,33 @@ function ParallaxScrolling(ctx, imgdata)
     // Function: Move all layer except the first one
     this.Move = function(dir, speed)
     {
-        var m = 1;
-        if( dir === 'left' )
-        {
-            m = -1
-        }
-
+        // dir < 0 player moving left to right
+        // dir > 0 player moving right to left
         for(var i=1; i<self.layers.length; i++)
         {
-            if( self.layers[i].x > self.layers[i].img.width )
-            {
-                self.layers[i].x = 0;
-            }
-            self.layers[i].x += speed*m*i;
+            self.layers[i].x = (self.layers[i].x + speed*dir*i) % self.layers[i].img.width;
         }
     };
  
     // Function: Draw all layer in the canvas
     this.Draw = function()
     {
-        self.Move('right', 1);
+        ctx.clearRect(0,0, screen.width, screen.height);
         for(var i=0; i<self.layers.length; i++)
         {
-            var x1 = (self.layers[i].x-self.layers[i].img.width);
+            var x1 = self.layers[i].x - self.layers[i].img.width;
+            var x2 = self.layers[i].x + self.layers[i].img.width;
             self.ctx.drawImage(self.layers[i].img,
                     0, 0, self.layers[i].img.width, self.layers[i].img.height, 
                     self.layers[i].x, 0, self.layers[i].img.width, self.layers[i].img.height);
             
             self.ctx.drawImage(self.layers[i].img,
-                    0, 0, self.layers[i].img.width, self.layers[i].img.height, 
-                    x1, 0, self.layers[i].img.width, self.layers[i].img.height);                       
+                    0, 0, self.layers[i].img.width, self.layers[i].img.height,
+                    x1, 0, self.layers[i].img.width, self.layers[i].img.height);
+
+            self.ctx.drawImage(self.layers[i].img,
+                    0, 0, self.layers[i].img.width, self.layers[i].img.height,
+                    x2, 0, self.layers[i].img.width, self.layers[i].img.height);
         }
     }
 }

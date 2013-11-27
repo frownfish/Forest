@@ -13,11 +13,10 @@
     // Main function to call
     function Run()
     {
-        ctx.clearRect(0,0, screen.width, screen.height);
         ticks++;
         Status(ticks);
-        parallax.Draw();
     }
+
   </script>
 </head>
 <body>
@@ -27,16 +26,30 @@
   </div>
   <script>    
         // Fetch the canvas element and context
-    var screen = document.getElementById('screen');
-    var ctx = screen.getContext('2d');  
+    var can = document.getElementById('screen');
+    can.tabIndex = 1;
+    var ctx = can.getContext('2d');
 
-        // Initialize the layer and parallax scrolling
-        var layer = new Array('resource/img/background-0.png', 'resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
-        var parallax = new ParallaxScrolling(ctx, layer);
+    // Initialize the layer and parallax scrolling
+    var layer = new Array('resource/img/background-0.png', 'resource/img/background-0.png', 'resource/img/background-1.png', 'resource/img/background-2.png');
+    var parallax = new ParallaxScrolling(ctx, layer);
+
+
+    can.addEventListener('keydown', function(e)
+    {
+        if (e.keyCode === 37)  // left
+        {
+            parallax.Move(-1,1);
+        }
+        else if (e.keyCode === 39)  // right
+        {
+            parallax.Move(1,1);
+        }
+    }, false);
 
     // Set ticks to 0 and initialize options array for our sprite
     var ticks = 0;
-    window.setInterval(Run, 33);
+    window.setInterval(parallax.Draw, 20);
   </script>
   <noscript>You need javascript to run the demo!</noscript>
 </body></html>
