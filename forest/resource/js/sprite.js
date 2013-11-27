@@ -1,39 +1,33 @@
 // Simple sprite class
 function Sprite(args)
 {
-    this.image = new Image();
-    this.image.src = args.imgSrc;
-    this.x = args.x  || (args.can.width/2)-(args.spw/2);
-    this.y = args.y || (args.can.height-args.spw);
-    this.imgFrames = args.frames || 1;
-    this.frame = 0;
+    var self = this
+    self.can = args.can;
+    self.ctx = args.ctx;
+    self.spw = args.spw;
+    self.img = new Image();
+    self.img.src = args.imgSrc;
+    self.x = args.x  || (args.can.width/2)-(args.spw/2);
+    self.y = args.y || (args.can.height-args.spw);
+    self.imgFrames = args.frames || 1;
+    self.frame = 0;
     // Draw the sprite to the screen
     this.Draw = function()
     {
-        
-        ctx.drawImage(this.image, this.frame, 0, args.spw,
-                      args.spw, this.x, this.y, args.spw, args.spw);
-        this.frame += 48;
-        if( this.frame >= this.image.width )
+        ctx.clearRect(0, 0, self.can.width, self.can.height);
+        ctx.drawImage(self.img,
+            self.frame,
+            0,
+            self.spw,
+            self.spw,
+            self.x,
+            self.y,
+            self.spw,
+            self.spw);
+        self.frame += self.spw;
+        if( self.frame >= self.img.width )
         {
-            this.frame = 0;
+            self.frame = 0;
         }
     };
 };
-
-// Main function to call
-function Run()
-{
-    ctx.clearRect(0,0, can.width, can.height);
-    ticks++;
-    Status(ticks);
-    sprite.Draw();
-}
-
-// Fetch the canvas element and context
-var can = document.getElementById('screen');
-var ctx = can.getContext('2d');  
-
-// Set ticks to 0 and initialize options array for our sprite
-var ticks = 0;
-

@@ -38,15 +38,21 @@
             var spriteOptions =
             {
                 can: can,
-                imgSrc: 'images/run2.png',
-                spw: 48,
-                frames: 10
+                ctx: ctx,
+                imgSrc: 'resource/img/walk.png',
+                spw: 75,
+                frames: 4
             };
 
             // Initialize the sprite and run the demo
             var sprite = new Sprite(spriteOptions);
-            var ticks = 0;
-            window.setInterval(parallax.Draw, 20);
+            window.setInterval(Draw, 100);
+            function Draw()
+            {
+                parallax.Draw();
+                // sprite.Draw();
+            }
+
         </script>
         <noscript>You need javascript to run the demo!</noscript>
     </body>
