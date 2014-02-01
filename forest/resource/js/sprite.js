@@ -14,7 +14,6 @@ function Sprite(args)
     // Draw the sprite to the screen
     this.Draw = function()
     {
-        ctx.clearRect(0, 0, self.can.width, self.can.height);
         ctx.drawImage(self.img,
             self.frame,
             0,
@@ -24,10 +23,14 @@ function Sprite(args)
             self.y,
             self.spw,
             self.spw);
+    };
+
+    this.Step = function()
+    {
         self.frame += self.spw;
         if( self.frame >= self.img.width )
         {
             self.frame = 0;
         }
-    };
+    }
 };
